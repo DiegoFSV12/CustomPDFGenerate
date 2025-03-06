@@ -58,20 +58,20 @@ def main():
         chapters.append((title,body,font,size))
     
     if st.button("Generar PDF"):
-        image_path = uploaded_image.name if uploaded_image else None
+        image_path = "img/"+uploaded_image.name if uploaded_image else None
         if image_path:
             with open(image_path,"wb") as f:
                 f.write(uploaded_image.getbuffer())
         
-        create_pdf("output_fpdf.pdf",document_title,author,chapters,image_path)
+        create_pdf("PDF/"+document_title+".pdf",document_title,author,chapters,image_path)
 
-        with open("output_fpdf.pdf","rb") as pdf_file:
+        with open("PDF/"+document_title+".pdf","rb") as pdf_file:
             PDFbyte = pdf_file.read()
         
         st.download_button(
             label="Descargar PDF",
             data=PDFbyte,
-            file_name="output_fpdf.pdf",
+            file_name="PDF/"+document_title+".pdf",
             mime='application/octet-stream',
         )
         st.success("PDF generado exitosamente")
